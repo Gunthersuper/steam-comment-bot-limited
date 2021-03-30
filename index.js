@@ -67,7 +67,16 @@ user.on("loggedOn", function() {
 // Add to friend from the main account
 function add1(steamid) {
 	user.addFriend(steamid, function(err, personaName) {
-		if (err) { console.log('Cant add to friend %s, error: %s'.red, steamid, err); }
+		if (err) { 
+			if (err = 'DublicateName') {
+				(async() => {
+					console.log('[%s] Already in the friend list'.green, steamid); 
+					await new Promise(r => setTimeout(r, 5000));
+				    add2(user.steamID); 
+				})();
+			}
+			else console.log('Cant add to friend %s, error: %s'.red, steamid, err); 
+		}
 		else { 
 			(async() => {
 				console.log('[%s] Request sent'.green, steamid); 
@@ -82,7 +91,16 @@ function add1(steamid) {
 // Accept friend request on the bot account
 function add2(steamid) {
 	user1.addFriend(steamid, function(err, personaName) {
-		if (err) { console.log('Cant add to friend %s, error: %s'.red, steamid, err); }
+		if (err) {
+			if (err = 'DublicateName') {
+				(async() => {
+					console.log('[%s] Already in the friend list'.green, steamid); 
+					await new Promise(r => setTimeout(r, 30000));
+				    comm()
+				})();
+			}
+			else console.log('Cant add to friend %s, error: %s'.red, steamid, err); 
+		}
 		else { 
 			(async() => {	
 				console.log('[%s] Accepted'.green, user1.steamID); 
